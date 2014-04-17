@@ -43,8 +43,7 @@ $(document).ready(function(){
   var totalTime = 0;
 
   //MAIN CALL TO GAME LOOP
-  init();
-
+  startScreen();
 
   //FUNCTION DEFS
   function init(){
@@ -55,6 +54,18 @@ $(document).ready(function(){
     resetScore();
     update();
     generateParticles();
+  }
+
+  function startScreen(){
+    var startScreenID = requestAnimationFrame(startScreen);
+    fillCanvas();
+    var selectedOption = mainMenu(context, map);
+
+    //start game
+    if(selectedOption){
+      cancelAnimationFrame(startScreenID);
+      init();
+    }
   }
 
   function clearMap(){
@@ -156,6 +167,7 @@ $(document).ready(function(){
   up = 38
   right = 39
   down = 40
+  enter = 13
   */
   $(document).keydown(function(e){
     var key = e.which;
