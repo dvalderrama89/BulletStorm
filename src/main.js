@@ -26,17 +26,44 @@ $(document).ready(function(){
         };
   }());
 
+  //VARS
   var canvas = document.getElementById("canvas"),
     context = canvas.getContext("2d");
     screenWidth = 600,
     screenHeight = 400,
     paused = false,
     d = "";
-
   var map = [];
   var score = 0;
   canvas.width = screenWidth;
   canvas.height = screenHeight;
+  var fps = 60;
+  var t0, t1;
+  var tScore = 0;
+  var totalTime = 0;
+
+  //MAIN CALL TO GAME LOOP
+  init();
+
+
+  //FUNCTION DEFS
+  function init(){
+    fillCanvas();
+    createPlayer(context);
+    createEnemy();
+    clearMap();
+    resetScore();
+    update();
+    generateParticles();
+  }
+
+  function clearMap(){
+    map.length = 0;
+  }
+  function resetScore(){
+    score = 0;
+    tScore = 0;
+  }
 
   function fillCanvas(){
     context.fillStyle = "#444349";
@@ -45,12 +72,6 @@ $(document).ready(function(){
     context.strokeRect(0,0,screenWidth,screenHeight);
   }
 
-  fillCanvas();
-  createPlayer(context);
-
-  var fps = 60;
-  var t0, t1;
-  var tScore = 0;
   function update() {
 
     var gameLoop = requestAnimationFrame(update);
@@ -64,16 +85,34 @@ $(document).ready(function(){
       setNumBombs(1);
       tScore = 0;
     }
-
     draw();
-
-
-    if(gameOver)
+    if(gameOver){
       cancelAnimationFrame(gameLoop);
-
-
+      gameOverScreen();
+    }
   }
-  update();
+
+  //kd = keydown
+  var kd = false;
+  function gameOverScreen(){
+    var endGameLoop = requestAnimationFrame(gameOverScreen);
+    context.font = "30px Arial";
+    context.fillStyle = "yellow";
+    context.strokeStyle = "black";
+    context.lineWidth = 5;
+    context.miterLimit=2;
+    var text = "PLAY AGAIN? SPACEBAR = YES";
+    context.strokeText(text, 65, screenHeight/2);
+    context.fillText(text, 65, screenHeight/2);
+
+    if(map[32] && !kd){
+      kd = true;
+      cancelAnimationFrame(endGameLoop);
+      init();
+    }
+    else if(!map[32])
+      kd = false;
+  }
 
   function getScore(){
     return score;
@@ -87,6 +126,7 @@ $(document).ready(function(){
     drawScore();
 
   }
+
   function drawScore(){
     var bombs = getNumBombs();
     context.font = "20px Arial";
@@ -95,7 +135,6 @@ $(document).ready(function(){
     context.fillText("Bombs: " + bombs, 10, 350);
   }
 
-  var totalTime = 0;
   function generateParticles() {
       requestAnimationFrame(generateParticles);
       t0 = performance.now();
@@ -108,10 +147,10 @@ $(document).ready(function(){
         totalTime = 0;
       }
   }
-  generateParticles();
 
-  //Handle multiple keypresses
   /*
+  Handle multiple keypresses
+  ---------------------------
   spacebar = 32
   left = 37
   up = 38

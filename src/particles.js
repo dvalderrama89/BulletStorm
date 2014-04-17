@@ -9,7 +9,10 @@ Enemy = function() {
 }
 
 var enemy_array = [];
-//var enemy = new Enemy();
+
+function createEnemy(){
+  enemy_array.length = 0;
+}
 
 function drawEnemy(context){
   for (var i = enemy_array.length - 1; i >= 0; i--) {

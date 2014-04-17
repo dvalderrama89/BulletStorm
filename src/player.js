@@ -19,13 +19,18 @@ Bullet = function(){
   this.angularVelocity = 0.1;
 }
 
+//VARS
 var bullet_array = [];
+var sinceLastBullet = 0;
+var lb0, lb1;
+var bomb = false;
+var numBombs = 3;
 
 function createPlayer(context){
-  context.fillStyle = "white";
-  context.fillRect(player.startX, player.startY, player.sizeX, player.sizeY);
-  context.strokeStyle = "black";
-  context.strokeRect(player.sizeX, player.sizeY, player.sizeX, player.sizeY);
+  bullet_array.length = 0;
+  numBombs = 3;
+  player.x = player.startX;
+  player.y = player.startY;
 }
 
 function drawPlayer(context){
@@ -85,10 +90,6 @@ function updateBullets(){
 
 }
 
-var sinceLastBullet = 0;
-var lb0, lb1;
-var bomb = false;
-var numBombs = 3;
 function updatePlayer(map){
   var dx = 0, dy = 0;
 
