@@ -1,6 +1,7 @@
 /*
 Known issues:
   -Reinits the game over menu after a retry
+    which is a possible cause behind the game over menu blinking on "no" selection
 */
 
 $(document).ready(function(){
@@ -115,6 +116,7 @@ $(document).ready(function(){
 
   //kd = keydown
   var kd = false;
+  var retry;
   function gameOverScreen(){
     var endGameLoop = requestAnimationFrame(gameOverScreen);
 
@@ -125,10 +127,10 @@ $(document).ready(function(){
     setScore(score);
 
     //display game over menu
-    gameOverMenu(context, map);
+    retry = gameOverMenu(context, map);
 
 
-    if(map[13] && !kd){
+    if(map[13] && !kd && retry == 1){
       kd = true;
       cancelAnimationFrame(endGameLoop);
       init();

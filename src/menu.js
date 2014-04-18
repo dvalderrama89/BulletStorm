@@ -58,6 +58,7 @@ var counter = 0;
 var go_counter;
 var p_right = false;
 var p_left = false;
+var go_selection = false;
 
 //push to menu
 menu_array.push(start);
@@ -97,8 +98,8 @@ function gameOverMenu(context, map){
     }
 
   }
-  /*
-  if(map[32] && !selection){
+
+  if(map[13] && !go_selection){
     if(go_counter == gameOver_array.length -2){
       //clear the game over array because it is initialized
       //every time the game ends
@@ -108,15 +109,16 @@ function gameOverMenu(context, map){
     else if(go_counter == gameOver_array.length-1)
       return 0;
     else
-      console.log("error in game menu selection");
-    }
-    selection = true;
+      console.log("error in game menu go_selection");
+
+    go_selection = true;
   }
 
 
-  if(!map[32])
-    selection = false;
-  */
+  if(!map[13])
+    go_selection = false;
+
+
   if(!map[39])
     p_right = false;
   if(!map[37])
