@@ -1,3 +1,8 @@
+/*
+Known issues:
+  -Reinits the game over menu after a retry
+*/
+
 $(document).ready(function(){
   $("#container").append("<canvas id='canvas'></canvas>");
 
@@ -99,6 +104,11 @@ $(document).ready(function(){
     draw();
     if(gameOver){
       cancelAnimationFrame(gameLoop);
+
+      //call setEndScore here to avoid pushing it multiple
+      //times in menu.js
+      //Send score to game over menu
+      setEndScore(score);
       gameOverScreen();
     }
   }
@@ -107,21 +117,23 @@ $(document).ready(function(){
   var kd = false;
   function gameOverScreen(){
     var endGameLoop = requestAnimationFrame(gameOverScreen);
-    context.font = "30px Arial";
-    context.fillStyle = "yellow";
-    context.strokeStyle = "black";
-    context.lineWidth = 5;
-    context.miterLimit=2;
-    var text = "PLAY AGAIN? SPACEBAR = YES";
-    context.strokeText(text, 65, screenHeight/2);
-    context.fillText(text, 65, screenHeight/2);
 
-    if(map[32] && !kd){
+    //fill canvas with grey to mask the particles in the background
+    fillCanvas();
+
+    //send score to leaderboard
+    setScore(score);
+
+    //display game over menu
+    gameOverMenu(context, map);
+
+
+    if(map[13] && !kd){
       kd = true;
       cancelAnimationFrame(endGameLoop);
       init();
     }
-    else if(!map[32])
+    else if(!map[13])
       kd = false;
   }
 

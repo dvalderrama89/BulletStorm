@@ -2,16 +2,31 @@
 <html>
 
 <head>
+  <script src="https://cdn.firebase.com/js/client/1.0.11/firebase.js"></script>
   <script type="text/javascript" src="lib/jquery.js"></script>
-  <title>Test</title>
+  <link rel="stylesheet" type="text/css" href="src/stylesheet.css">
+  <title>Bullet Storm</title>
 </head>
 
 <body>
+
   <div id="container"></div>
+  <table id ="leaderboard">
+    <tr>
+      <td><u><b>Player</b></u></td>
+      <td><u><b>Score</b></u></td>
+    </tr>
+  </table>
+  <input type="text" id="nameInput" placeholder="Name">
+  <button type="button" id="scoreInput">Submit</button>
+
+
   <script type="text/javascript" src="src/player.js"></script>
   <script type="text/javascript" src="src/particles.js"></script>
-  <script type="text/javascript" src="src/menu.js"></script>
+
   <script type="text/javascript" src="src/main.js"></script>
+  <script type="text/javascript" src="src/menu.js"></script>
+  <script type="text/javascript" src="src/leaderboard.js"></script>
 
 </body>
 
