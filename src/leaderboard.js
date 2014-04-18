@@ -1,3 +1,8 @@
+/*
+  Known Issues:
+    -doesn't clear name from nameInput after submission
+*/
+
 var LEADERBOARD_SIZE = 5;
 
 

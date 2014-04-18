@@ -2,10 +2,18 @@
 Known issues:
   -Reinits the game over menu after a retry
     which is a possible cause behind the game over menu blinking on "no" selection
+  -Player can go out of bounds
 */
 
 $(document).ready(function(){
   $("#container").append("<canvas id='canvas'></canvas>");
+
+
+  $("#banner").append('<h1><p id="header1">Currently under construction! Everything here is open source.</p></h1>');
+
+  $(function() {
+    $( "#menu" ).menu();
+  });
 
   (function() {
     var lastTime = 0;
